@@ -21,4 +21,31 @@ def find_tip(points, convex_hull):
         if np.all(points[j] == points[indices[i - 1] - 2]):
             return tuple(points[j])
 
+cap = cv2.VideoCapture(0)
 
+
+while True:
+    ret, img = cap.read()
+
+    contours, hierarchy = cv2.findContours(preprocess(img), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    for cnt in contours:
+
+
+        peri = cv2.arcLength(cnt, True)
+        approx = cv2.approxPolyDP(cnt, 0.025 * peri, True)
+        hull = cv2.convexHull(approx, returnPoints=False)
+        sides = len(hull)
+
+        if 6 > sides > 3 and sides + 2 == len(approx):
+            arrow_tip = find_tip(approx[:,0,:], hull.squeeze())
+            if arrow_tip:
+                cv2.drawContours(img, [cnt], -1, (0, 255, 0), 3)
+                cv2.circle(img, arrow_tip, 3, (0, 0, 255), cv2.FILLED)
+
+    cv2.imshow("Image", img)
+    if cv2.waitKey(1) == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
