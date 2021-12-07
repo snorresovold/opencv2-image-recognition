@@ -1,27 +1,25 @@
 import numpy as np
 import cv2
 
-img = cv2.resize(cv2.imread('arrow.webp', 0), (0, 0), fx=0.8, fy=0.8)
-template = cv2.resize(cv2.imread('arrow.webp', 0), (0, 0), fx=0.8, fy=0.8)
-h, w = template.shape
-
-#methods = [cv2.TM_CCOEFF, cv2.TM_CCOEFF_NORMED, cv2.TM_CCORR, cv2.TM_CCORR_NORMED, cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]
-
-method = cv2.TM_CCOEFF
 
 
+# check out for more info https://stackoverflow.com/questions/66718462/python-cv-detect-different-types-of-arrows
+def preprocess(img):
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img_blur = cv2.GaussianBlur(img_gray, (5, 5), 1)
+    img_canny = cv2.Canny(img_blur, 50, 50)
+    kernel = np.ones((3, 3))
+    img_dilate = cv2.dilate(img_canny, kernel, iterations=2)
+    img_erode = cv2.erode(img_dilate, kernel, iterations=1)
+    return img_erode
 
-img2 = img.copy()
 
-result = cv2.matchTemplate(img2, template, method)
-min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
-    location = min_loc
-else:
-    location = max_loc
-
-bottom_right = (location[0] + w, location[1] + h)    
-cv2.rectangle(img2, location, bottom_right, 255, 5)
-cv2.imshow('Match', img2)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+def find_tip(points, convex_hull):
+    length = len(points)
+    indices = np.setdiff1d(range(length), convex_hull)
+    for i in range(2):
+        j = indices[i] + 2
+        if j > length - 1:
+            j = length - j
+            if np.all(points[j] == points[indices[i - 1] - 2]):
+                return tuple(points[j])
