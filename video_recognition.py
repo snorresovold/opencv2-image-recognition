@@ -31,9 +31,8 @@ while True:
 
     for cnt in contours:
 
-
         peri = cv2.arcLength(cnt, True)
-        approx = cv2.approxPolyDP(cnt, 0.025 * peri, True)
+        approx = cv2.approxPolyDP(cnt, 0.047 * peri, True) #sensitivity
         hull = cv2.convexHull(approx, returnPoints=False)
         sides = len(hull)
 
