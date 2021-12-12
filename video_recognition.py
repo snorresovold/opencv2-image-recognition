@@ -1,3 +1,4 @@
+from operator import le
 import cv2
 import numpy as np
 
@@ -27,6 +28,7 @@ def find_tip(points, convex_hull):
             j = length - j
         if np.all(points[j] == points[indices[i - 1] - 2]): #found the point of the arrow
             return tuple(points[j])
+
 
 cap = cv2.VideoCapture(0)
 
