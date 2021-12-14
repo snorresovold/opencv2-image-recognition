@@ -94,20 +94,25 @@ def get_arrow_info(arrow_image):
 
 
 if __name__ == "__main__":
-    image = cv2.imread("FHtLk.png")
+    while True:
+        image = cv2.imread("FHtLk.png")
 
-    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    _, thresh_image = cv2.threshold(gray_image, 100, 255, cv2.THRESH_BINARY_INV)
-    cv2.imshow("thresh_image", thresh_image)
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        _, thresh_image = cv2.threshold(gray_image, 100, 255, cv2.THRESH_BINARY_INV)
+        cv2.imshow("thresh_image", thresh_image)
 
-    arrow_image = get_filter_arrow_image(thresh_image)
-    if arrow_image is not None:
-        cv2.imshow("arrow_image", arrow_image)
-        cv2.imwrite("arrow_image.png", arrow_image)
+        arrow_image = get_filter_arrow_image(thresh_image)
+        if arrow_image is not None:
+            cv2.imshow("arrow_image", arrow_image)
+            cv2.imwrite("arrow_image.png", arrow_image)
 
-        arrow_info_image, arrow_info = get_arrow_info(arrow_image)
-        cv2.imshow("arrow_info_image", arrow_info_image)
-        cv2.imwrite("arrow_info_image.png", arrow_info_image)
+            arrow_info_image, arrow_info = get_arrow_info(arrow_image)
+            cv2.imshow("arrow_info_image", arrow_info_image)
+            cv2.imwrite("arrow_info_image.png", arrow_info_image)
+
+
+        if cv2.waitKey(1) == ord('q'):
+            break
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
