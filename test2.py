@@ -108,7 +108,7 @@ if __name__ == "__main__":
             cv2.imshow("arrow_image", arrow_image)
 
             arrow_info_image, arrow_info = get_arrow_info(arrow_image)
-            cv2.imshow("arrow_info_image", arrow_info_image)
+            #cv2.imshow("arrow_info_image", arrow_info_image)
             print ("a")
         print ("s")
 
