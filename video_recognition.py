@@ -41,7 +41,7 @@ while True:
         approx = cv2.approxPolyDP(cnt, 0.047 * peri, True) #sensitivity
         hull = cv2.convexHull(approx, returnPoints=False)
         sides = len(hull)
-
+        
         if 6 > sides > 3 and sides + 2 == len(approx):
             arrow_tip = find_tip(approx[:,0,:], hull.squeeze())
             if arrow_tip:
