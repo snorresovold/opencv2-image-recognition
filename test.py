@@ -1,8 +1,8 @@
 import math
 import cv2
 import numpy as np
-
-
+# This one works but very slowly
+# New idea, take image check it and then move, then take new image
 def get_filter_arrow_image(threslold_image):
     blank_image = np.zeros_like(threslold_image)
 
@@ -106,11 +106,11 @@ if __name__ == "__main__":
         arrow_image = get_filter_arrow_image(thresh_image)
         if arrow_image is not None:
             cv2.imshow("arrow_image", arrow_image)
-            cv2.imwrite("arrow_image.png", arrow_image)
+            #cv2.imwrite("arrow_image.png", arrow_image)
 
             arrow_info_image, arrow_info = get_arrow_info(arrow_image)
             cv2.imshow("arrow_info_image", arrow_info_image)
-            cv2.imwrite("arrow_info_image.png", arrow_info_image)
+            #cv2.imwrite("arrow_info_image.png", arrow_info_image)
 
         cv2.imshow("sus", frame)
         if cv2.waitKey(1) == ord('q'):
