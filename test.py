@@ -94,25 +94,26 @@ def get_arrow_info(arrow_image):
 
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture(0)
+    #cap = cv2.VideoCapture(0)
     while True:
-        ret, frame = cap.read()
-        #image = cv2.imread("FHtLk.png")
+        #ret, frame = cap.read()
+        image = cv2.imread("FHtLk.png")
+        cv2.imshow("og image", image)
 
-        gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         _, thresh_image = cv2.threshold(gray_image, 100, 255, cv2.THRESH_BINARY_INV)
         cv2.imshow("thresh_image", thresh_image)
 
         arrow_image = get_filter_arrow_image(thresh_image)
         if arrow_image is not None:
             cv2.imshow("arrow_image", arrow_image)
-            #cv2.imwrite("arrow_image.png", arrow_image)
+            cv2.imwrite("arrow_image.png", arrow_image)
 
             arrow_info_image, arrow_info = get_arrow_info(arrow_image)
             cv2.imshow("arrow_info_image", arrow_info_image)
-            #cv2.imwrite("arrow_info_image.png", arrow_info_image)
+            cv2.imwrite("arrow_info_image.png", arrow_info_image)
 
-        cv2.imshow("sus", frame)
+        #cv2.imshow("sus", frame)
         if cv2.waitKey(1) == ord('q'):
             break
 

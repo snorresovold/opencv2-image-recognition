@@ -97,7 +97,7 @@ if __name__ == "__main__":
     while True:
         #cap = cv2.VideoCapture(0)
         #ret, frame = cap.read()
-        image = cv2.imread("FHtLk.png")
+        image = cv2.imread("i.png")
         
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         _, thresh_image = cv2.threshold(gray_image, 100, 255, cv2.THRESH_BINARY_INV)
