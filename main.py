@@ -65,6 +65,10 @@ def angle_beween_points(a, b):
     arrow_slope = (a[0] - b[0]) / (a[1] - b[1])
     arrow_angle = math.degrees(math.atan(arrow_slope))
     print(arrow_angle, "angle is")
+    if arrow_angle <= 0:
+        tello.flip_forward()
+    else:
+        tello.rotate_clockwise(50)
     return arrow_angle
 
 
