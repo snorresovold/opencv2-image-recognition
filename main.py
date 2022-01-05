@@ -8,8 +8,11 @@ tello.connect()
 tello.takeoff()
 
 tello.streamon()
+
 frame_read = tello.get_frame_read()
 
+cap = cv2.VideoCapture(0)
+ret, frame_read = cap.read()
 def get_length(p1, p2):
     line_length = ((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) ** 0.5
     return line_length
@@ -65,8 +68,8 @@ def angle_beween_points(a, b):
     arrow_slope = (a[0] - b[0]) / (a[1] - b[1])
     arrow_angle = math.degrees(math.atan(arrow_slope))
     print(arrow_angle, "angle is")
-    if arrow_angle <= 0:
-        tello.flip_forward()
+    if arrow_angle >= 0:
+        tello.rotate_counter_clockwise(50)
     else:
         tello.rotate_clockwise(50)
     return arrow_angle
@@ -107,6 +110,7 @@ def get_arrow_info(arrow_image):
 def get_arrows():
     cv2.imwrite("i.png", frame_read.frame)
     image = cv2.imread("i.png")
+    cv2.imwrite("arrow_info_image", get_arrow_info(image))
 
 
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
