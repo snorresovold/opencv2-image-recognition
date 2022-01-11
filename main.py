@@ -11,6 +11,8 @@ tello.streamon()
 
 frame_read = tello.get_frame_read()
 
+cap = cv2.VideoCapture(0)
+ret, frame_read = cap.read()
 def get_length(p1, p2):
     line_length = ((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) ** 0.5
     return line_length
@@ -108,6 +110,7 @@ def get_arrow_info(arrow_image):
 def get_arrows():
     cv2.imwrite("i.png", frame_read.frame)
     image = cv2.imread("i.png")
+    cv2.imwrite("arrow_info_image", get_arrow_info(image))
 
 
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

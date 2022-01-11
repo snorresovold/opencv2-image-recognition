@@ -1,8 +1,13 @@
 import math
 import cv2
 import numpy as np
+<<<<<<< HEAD
 
 
+=======
+# This one works but very slowly
+# New idea, take image check it and then move, then take new image
+>>>>>>> parent of 77d48fc (cleaned stuff up)
 def get_filter_arrow_image(threslold_image):
     blank_image = np.zeros_like(threslold_image)
 
@@ -59,7 +64,10 @@ def get_max_distace_point(cnt):
 def angle_beween_points(a, b):
     arrow_slope = (a[0] - b[0]) / (a[1] - b[1])
     arrow_angle = math.degrees(math.atan(arrow_slope))
+<<<<<<< HEAD
     print(arrow_angle)
+=======
+>>>>>>> parent of 77d48fc (cleaned stuff up)
     return arrow_angle
 
 
@@ -95,6 +103,7 @@ def get_arrow_info(arrow_image):
 
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     cap = cv2.VideoCapture(0)
 
     ret, frame = cap.read()
@@ -109,6 +118,30 @@ if __name__ == "__main__":
 
     if arrow_image is not None:
         arrow_info_image, arrow_info = get_arrow_info(arrow_image)
+=======
+    #cap = cv2.VideoCapture(0)
+    while True:
+        #ret, frame = cap.read()
+        image = cv2.imread("FHtLk.png")
+        cv2.imshow("og image", image)
+
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        _, thresh_image = cv2.threshold(gray_image, 100, 255, cv2.THRESH_BINARY_INV)
+        cv2.imshow("thresh_image", thresh_image)
+
+        arrow_image = get_filter_arrow_image(thresh_image)
+        if arrow_image is not None:
+            cv2.imshow("arrow_image", arrow_image)
+            cv2.imwrite("arrow_image.png", arrow_image)
+
+            arrow_info_image, arrow_info = get_arrow_info(arrow_image)
+            cv2.imshow("arrow_info_image", arrow_info_image)
+            cv2.imwrite("arrow_info_image.png", arrow_info_image)
+
+        #cv2.imshow("sus", frame)
+        if cv2.waitKey(1) == ord('q'):
+            break
+>>>>>>> parent of 77d48fc (cleaned stuff up)
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()

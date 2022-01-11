@@ -59,6 +59,10 @@ def get_max_distace_point(cnt):
 def angle_beween_points(a, b):
     arrow_slope = (a[0] - b[0]) / (a[1] - b[1])
     arrow_angle = math.degrees(math.atan(arrow_slope))
+<<<<<<< HEAD
+=======
+    print(arrow_angle)
+>>>>>>> parent of 77d48fc (cleaned stuff up)
     return arrow_angle
 
 
@@ -94,20 +98,33 @@ def get_arrow_info(arrow_image):
 
 if __name__ == "__main__":
     while True:
+<<<<<<< HEAD
         cap = cv2.VideoCapture(0)
         ret, frame = cap.read()
         #image = cv2.imread("FHtLk.png")
         
         gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+=======
+        #cap = cv2.VideoCapture(0)
+        #ret, frame = cap.read()
+        image = cv2.imread("i.png")
+        
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+>>>>>>> parent of 77d48fc (cleaned stuff up)
         _, thresh_image = cv2.threshold(gray_image, 100, 255, cv2.THRESH_BINARY_INV)
         cv2.imshow("thresh_image", thresh_image)
 
         arrow_image = get_filter_arrow_image(thresh_image)
+<<<<<<< HEAD
+=======
+        print(arrow_image)
+>>>>>>> parent of 77d48fc (cleaned stuff up)
         print("b")
         if arrow_image is not None:
             cv2.imshow("arrow_image", arrow_image)
 
             arrow_info_image, arrow_info = get_arrow_info(arrow_image)
+<<<<<<< HEAD
             cv2.imshow("arrow_info_image", arrow_info_image)
             print ("a")
         print ("s")
@@ -115,6 +132,15 @@ if __name__ == "__main__":
         cap.release()
 
         cv2.imshow("Image", frame)
+=======
+            #cv2.imshow("arrow_info_image", arrow_info_image)
+            print ("a")
+        print ("s")
+
+        #cap.release()
+
+        cv2.imshow("Image", image)
+>>>>>>> parent of 77d48fc (cleaned stuff up)
         if cv2.waitKey(1) == ord('q'):
             break
 
